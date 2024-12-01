@@ -1,8 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::cache_lru::Cache;
-
-    use super::*;
+    use crate::cache_trait::CacheTrait;
 
     #[test]
     fn test_lru_cache() {
