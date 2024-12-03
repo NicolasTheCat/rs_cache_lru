@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use crate::cache_trait::CacheTrait;
 
+/// An LRU Cache meant to store an amount of data for a specific time, until a capacity buffer is expended
 pub struct Cache<V> {
     capacity: usize,
     data: HashMap<String, V>,
@@ -9,6 +10,16 @@ pub struct Cache<V> {
 }
 
 impl<V> Cache<V> {
+    ///Capacity refers to the number of elements saved within the cache
+    ///For example :
+    /// ```
+    /// # use lru_cache::cache_lru::Cache;
+    /// # use lru_cache::cache_trait::CacheTrait;
+    /// let mut cache:Cache<String> = Cache::new(3);
+    /// ```
+    /// Creates a new cache that will hold 3 Strings at once before removing the oldest one.
+    ///
+    /// Make sure to specify the type of the cache value and key
     pub fn new(capacity: usize) -> Self {
         Self {
             capacity,
