@@ -5,7 +5,7 @@ mod unit_tests {
 
     #[test]
     fn get_test_string() {
-        let mut cache_string: Cache<String> = Cache::new(3);
+        let mut cache_string: Cache<&str, String> = Cache::new(3);
         cache_string.put("A_string", String::from("Test"));
         assert_eq!(cache_string.get("A_string").unwrap(), "Test");
         let my_value = cache_string.get("NONE");
@@ -14,11 +14,11 @@ mod unit_tests {
 
     #[test]
     fn get_test_usize() {
-        let mut cache_usize: Cache<usize> = Cache::new(3);
+        let mut cache_usize: Cache<usize, usize> = Cache::new(3);
         let value: usize = 54;
-        cache_usize.put("A_usize", value);
-        assert_eq!(cache_usize.get("A_usize").unwrap(), &value);
-        let my_value = cache_usize.get("NONE");
+        cache_usize.put(1, value);
+        assert_eq!(cache_usize.get(1).unwrap(), &value);
+        let my_value = cache_usize.get(9999999);
         assert_eq!(my_value, None);
     }
 
