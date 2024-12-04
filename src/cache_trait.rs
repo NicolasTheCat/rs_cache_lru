@@ -1,10 +1,10 @@
-pub trait CacheTrait<V> {
+pub trait CacheTrait<K, V> {
     /// Puts new data within the cache under the specified key
     ///
     /// ```
     /// # use lru_cache::cache_lru::Cache;
     /// # use lru_cache::cache_trait::CacheTrait;
-    /// let mut cache:Cache<String> = Cache::new(3);
+    /// let mut cache:Cache<&str,String> = Cache::new(3);
     /// cache.put("A", String::from("value_a"));
     /// ```
     ///
@@ -12,13 +12,13 @@ pub trait CacheTrait<V> {
     /// ```
     /// # use lru_cache::cache_lru::Cache;
     /// # use lru_cache::cache_trait::CacheTrait;
-    /// let mut cache:Cache<String> = Cache::new(3);
+    /// let mut cache:Cache<&str,String> = Cache::new(3);
     /// cache.put("A", String::from("value_a")); // => [A]     "oldest" value to "newest"
     /// cache.put("B", String::from("value_b")); // => [A,B]
     /// cache.put("C", String::from("value_c")); // => [A,B,C]
     /// cache.put("D", String::from("value_d")); // => [B,C,D]
     /// ```
-    fn put(&mut self, key: &str, value: V);
+    fn put(&mut self, key: K, value: V);
 
     /// Retrieves data from the cache using a specific key
     ///
@@ -26,7 +26,7 @@ pub trait CacheTrait<V> {
     /// ```
     /// # use lru_cache::cache_lru::Cache;
     /// # use lru_cache::cache_trait::CacheTrait;
-    /// let mut cache:Cache<String> = Cache::new(3);
+    /// let mut cache:Cache<&str,String> = Cache::new(3);
     /// cache.put("A", String::from("value_a"));
     /// let my_value = cache.get("A").unwrap();
     /// ```
@@ -34,7 +34,7 @@ pub trait CacheTrait<V> {
     /// ```
     /// # use lru_cache::cache_lru::Cache;
     /// # use lru_cache::cache_trait::CacheTrait;
-    /// let mut cache:Cache<String> = Cache::new(3);
+    /// let mut cache:Cache<&str,String> = Cache::new(3);
     /// cache.put("A", String::from("value_a")); // => [A]     "oldest" value to "newest"
     /// cache.put("B", String::from("value_b")); // => [A,B]
     /// cache.put("C", String::from("value_c")); // => [A,B,C]
@@ -42,5 +42,5 @@ pub trait CacheTrait<V> {
     ///
     /// ```
     ///
-    fn get(&mut self, key: &str) -> Option<&V>;
+    fn get(&mut self, key: K) -> Option<&V>;
 }
